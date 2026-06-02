@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💌 Tengo algo para ti...</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Floating hearts background -->
+  <div id="hearts-container"></div>
+
+  <!-- Confetti container -->
+  <div id="confetti-container"></div>
+
+  <!-- Floating message -->
+  <div id="float-msg" class="float-msg"></div>
+
+  <!-- ===================== SCREEN 1: Main ===================== -->
+  <section id="screen-main" class="screen active">
+    <div class="card main-card">
+      <div class="envelope-icon">💌</div>
+      <h1 class="title">Ana Raquel, ¿te gustaría ir a una cita conmigo?<span class="heart-title"> ❤️</span></h1>
+      <p class="subtitle">Tengo algo especial planeado para ti 😊</p>
+      <div class="btn-group">
+        <button id="btn-yes" class="btn btn-yes" onclick="handleYes()">Sí 💖</button>
+        <button id="btn-no" class="btn btn-no" onmouseenter="moveNo()" ontouchstart="moveNo()">No 😢</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN 2: Choose Plan ===================== -->
+  <section id="screen-plans" class="screen">
+    <div class="screen-inner">
+      <div class="yes-header">
+        <div class="big-emoji">🎉</div>
+        <h2>¡Sabía que dirías que sí! ❤️</h2>
+        <p>Ahora elige qué quieres que hagamos</p>
+      </div>
+      <div class="plans-grid">
+
+        <div class="plan-card" onclick="selectPlan('☕ Ir por un café')">
+          <div class="plan-icon">☕</div>
+          <h3>Ir por un café</h3>
+          <p>Un momento íntimo tomando algo caliente y hablando de todo 💬</p>
+          <button class="btn-plan">Elegir este plan</button>
+        </div>
+
+        <div class="plan-card" onclick="selectPlan('🌳 Caminar por el parque')">
+          <div class="plan-icon">🌳</div>
+          <h3>Caminar por el parque</h3>
+          <p>Aire fresco, paisaje bonito y tu compañía perfecta 🌸</p>
+          <button class="btn-plan">Elegir este plan</button>
+        </div>
+
+        <div class="plan-card" onclick="selectPlan('⛪ Ir a la iglesia juntos')">
+          <div class="plan-icon">⛪</div>
+          <h3>Ir a la iglesia juntos</h3>
+          <p>Compartir fe y espiritualidad juntos, algo muy especial 🙏</p>
+          <button class="btn-plan">Elegir este plan</button>
+        </div>
+
+        <div class="plan-card" onclick="selectPlan('🍦 Comer un helado')">
+          <div class="plan-icon">🍦</div>
+          <h3>Comer un helado</h3>
+          <p>Dulce como tú, compartiendo sabores y sonrisas 😄</p>
+          <button class="btn-plan">Elegir este plan</button>
+        </div>
+
+        <div class="plan-card" onclick="selectPlan('🎬 Ver una película')">
+          <div class="plan-icon">🎬</div>
+          <h3>Ver una película</h3>
+          <p>Juntos en la oscuridad, disfrutando de una gran historia 🍿</p>
+          <button class="btn-plan">Elegir este plan</button>
+        </div>
+
+        <div class="plan-card" onclick="selectPlan('🍕 Ir a cenar pizza')">
+          <div class="plan-icon">🍕</div>
+          <h3>Ir a cenar pizza</h3>
+          <p>Porque todo es mejor compartido... especialmente la pizza 🤤</p>
+          <button class="btn-plan">Elegir este plan</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN 3: Date Picker ===================== -->
+  <section id="screen-date" class="screen">
+    <div class="card date-card">
+      <div class="selected-plan-badge" id="selected-plan-badge"></div>
+      <h2>¡Perfecto! Ahora agendemos 📅</h2>
+      <p class="date-subtitle">Elige cuándo será nuestra cita especial</p>
+
+      <div class="date-form">
+        <label>Fecha de la cita</label>
+        <input type="date" id="date-input" class="date-input" />
+
+        <label>Hora de la cita</label>
+        <div class="time-selectors">
+          <select id="hour-select" class="time-select">
+            <option value="">Hora</option>
+          </select>
+          <span class="time-sep">:</span>
+          <select id="min-select" class="time-select">
+            <option value="">Min</option>
+            <option value="00">00</option>
+            <option value="15">15</option>
+            <option value="30">30</option>
+            <option value="45">45</option>
+          </select>
+          <select id="ampm-select" class="time-select">
+            <option value="AM">AM</option>
+            <option value="PM">PM</option>
+          </select>
+        </div>
+
+        <div id="summary-box" class="summary-box hidden">
+          <div class="summary-label">Nuestra cita será:</div>
+          <div id="summary-text" class="summary-text"></div>
+        </div>
+
+        <button class="btn btn-confirm" onclick="confirmDate()">¡Confirmar cita! 💕</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCREEN 4: Final Confirmation ===================== -->
+  <section id="screen-final" class="screen">
+    <div class="card final-card">
+      <div class="final-emoji">🥰</div>
+      <h2 class="final-title">¡Perfecto! ❤️</h2>
+      <p class="final-text">Ya quedó agendada nuestra cita.<br>Ahora solo falta que llegue el gran día 😊</p>
+      <div id="final-summary" class="final-summary"></div>
+      <p class="final-faith">✨ Sabía que Dios me tenía en tus planes ✨</p>
+      <div class="final-hearts">❤️ 💖 💗 💓 💕</div>
+      <button class="btn-whatsapp" onclick="avisarWhatsApp()">
+        <span class="wa-icon">📲</span> Recibir confirmación por WhatsApp
+      </button>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
